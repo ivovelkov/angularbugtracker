@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>&lt;angular/&gt; Bug Tracking Tool</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
+<link href="css/abt.css" rel="stylesheet" type="text/css" >
+
+<!-- <angular/> library -->
+<script type="text/javascript" src="http://niden.getangular.com/angular-1.0a.js#database=bugtracker"></script>
+<!-- /<angular/> library -->
+
+</head>
+<body>
+    <div class="cnt_80">
+        <div class="g_80 warn">
+            <strong>&lt;angular/&gt; Bug Tracker</strong>
+        </div>
+        <div class="g_80">
+            <div class="g_20">
+                <ul>
+                <li><a href="#p=1">1</a></li>
+                <li><a href="#p=2">2</a></li>
+                <li><a href="#p=3">3</a></li>
+                <li><a href="#p=4">4</a></li>
+                <li><a href="#ignored" ng-action="$anchor.p=timetracking">Time Tracking Categories</a></li>
+                <li><a href="#ignored" ng-action="$anchor.p=1">Issue Resolutions</a></li>
+                </ul>
+            </div>
+            <div class="g_60 omega" 
+                 ng-show="$anchor.p=='timetracking'">
+                 P = 2
+            </div>
+            <div class="g_60 omega" 
+                 ng-show="$anchor.p=='1'" 
+                 ng-entity="resolution=Resolution" 
+                 ng-init="resolutions=Resolution.all()">
+                <div class="g_60 omega">
+                    [ <a href="#">+</a> ] &nbsp; 
+                    <label>Resolution</label> 
+                    <input name="resolution.name" type="text" class="inputbox" />
+                    <input type="submit" value="Save" class="inputbutton" />
+                </div>
+                <div class="g_59 align_right omega">
+                    <input name="resolutionfilter" class="inputsearchbox" /> 
+                    <img src="images/b_search.png" alt="Search" />
+                </div>
+                <div class="g_59 omega">
+                    <table style="width:100%" ng-init="resolutionorder=['name']">
+                    <tr>
+                        <td style="width:40px;">
+                            &nbsp;
+                        </td>
+                        <td class="align_left">
+                            <a href="" ng-action="resolutionorder.$orderByToggle('name')" 
+                                       ng-class="resolutionorder.$orderByDirection('name')">Resolution</a>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="record in resolutions.$filter(resolutionfilter).$orderBy(resolutionorder)">
+                        <td class="align_center" 
+                            style="white-space:nowrap;">
+                            <a href="#resolution={{record.$id}}"><img src="images/b_edit.png" alt="Edit" /></a>&nbsp;
+                            <a href="#" ng-action="record.$delete()"><img src="images/b_delete.png" alt="Delete" /></a>
+                        </td>
+                        <td class="align_left">{{record.name}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="g_60 omega" 
+                 ng-entity="timetrackingcategory=TimeTrackingCategory" 
+                 ng-init="timetrackingcategories=TimeTrackingCategory.all()">
+                <div class="g_60 omega">
+                    [ <a href="#">+</a> ] &nbsp; 
+                    <label>Time Tracking Category</label> 
+                    <input name="timetrackingcategory.name" type="text" class="inputbox" />
+                    <input type="submit" value="Save" class="inputbutton" />
+                </div>
+                <div class="g_59 align_right omega">
+                    <input name="timetrackingcategoryfilter" class="inputsearchbox" /> 
+                    <img src="images/b_search.png" alt="Search" />
+                </div>
+                <div class="g_59 omega">
+                    <table style="width:100%" ng-init="timetrackingcategoryorder=['name']">
+                    <tr>
+                        <td style="width:40px;">
+                            &nbsp;
+                        </td>
+                        <td class="align_left">
+                            <a href="" ng-action="timetrackingcategoryorder.$orderByToggle('name')" 
+                                       ng-class="timetrackingcategoryorder.$orderByDirection('name')">Time Tracking Category</a>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="record in timetrackingcategories.$filter(timetrackingcategoryfilter).$orderBy(timetrackingcategoryorder)">
+                        <td class="align_center" 
+                            style="white-space:nowrap;">
+                            <a href="#timetrackingcategory={{record.$id}}"><img src="images/b_edit.png" alt="Edit" /></a>&nbsp;
+                            <a href="#" ng-action="record.$delete()"><img src="images/b_delete.png" alt="Delete" /></a>
+                        </td>
+                        <td class="align_left">{{record.name}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="g_80 warn align_right">
+            Powered by <a href="http://www.getangular.com">&lt;angular/&gt;</a>
+        </div>
+    </div>
+</body>
+</html>
